@@ -38,8 +38,8 @@ public class FactSiteRestController {
         return factSiteService.updateFactText(id, factTextChange);
     }
 
-    @DeleteMapping
-    ResponseEntity<Void> deleteFactText(Long id) {
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> deleteFactText(@PathVariable final Long id) {
         factSiteService.deleteFactText(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
