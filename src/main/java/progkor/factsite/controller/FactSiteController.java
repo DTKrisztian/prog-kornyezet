@@ -35,6 +35,18 @@ public class FactSiteController {
         return "factsite/edit";
     }
 
+    @GetMapping("/create")
+    public String createFactTextForm(final Model model) {
+        return "factsite/create";
+    }
+
+    @PostMapping("/create")
+    public String createFactText(final Model model, final FactText factText) {
+        final FactText savedFactText = factSiteService.createFactText(factText);
+        model.addAttribute("factText", savedFactText);
+        return "factsite/create";
+    }
+
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String createFactText(final Model model,
                                  final @RequestParam(value = "id", required = false) Long id,
@@ -44,23 +56,12 @@ public class FactSiteController {
         return "factsite/edit";
     }
 
-    @GetMapping("/create")
-    public String createFactTextForm(final Model model) {
-        return "factsite/create";
-    }
-
-    @PostMapping("/create")
-    public String createFactText(final Model model, final  FactText factText) {
-        final FactText savedFactText = factSiteService.createFactText(factText);
-        model.addAttribute("factText", savedFactText);
-        return "factsite/create";
-    }
-
     @GetMapping("/{id}/delete")
     public String deleteFactText(final Model model, @PathVariable("id") final Long id) {
         try {
-                factSiteService.deleteFactText(id);
+            factSiteService.deleteFactText(id);
         } catch (NotFoundException e) {
+            //nothing
         }
         final List<FactText> factTexts = factSiteService.getAllFactTexts();
         model.addAttribute("factTexts", factTexts);

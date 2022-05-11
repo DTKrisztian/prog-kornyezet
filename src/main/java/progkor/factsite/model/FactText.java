@@ -43,8 +43,12 @@ public class FactText {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FactText)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FactText)) {
+            return false;
+        }
         final FactText factText = (FactText) o;
         return Objects.equals(id, factText.id) && Objects.equals(context, factText.context) && theme == factText.theme;
     }
