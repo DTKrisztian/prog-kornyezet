@@ -20,12 +20,12 @@ public class FactSiteRestController {
 
     @GetMapping
     List<FactText> getAllFactTexts() {
-        return  factSiteService.getAllFactTexts();
+        return factSiteService.getAllFactTexts();
     }
 
     @GetMapping("/{id}")
     FactText getFactText(@PathVariable("id") final Long id) {
-        return  factSiteService.getFactText(id);
+        return factSiteService.getFactText(id);
     }
 
     @PostMapping

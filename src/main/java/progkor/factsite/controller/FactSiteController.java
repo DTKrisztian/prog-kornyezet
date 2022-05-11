@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import progkor.factsite.model.FactText;
+import progkor.factsite.model.exception.NotFoundException;
 import progkor.factsite.service.FactSiteService;
 
 @Controller
@@ -43,5 +44,27 @@ public class FactSiteController {
         return "factsite/edit";
     }
 
+    @GetMapping("/create")
+    public String createFactTextForm(final Model model) {
+        return "factsite/create";
+    }
+
+    @PostMapping("/create")
+    public String createFactText(final Model model, final  FactText factText) {
+        final FactText savedFactText = factSiteService.createFactText(factText);
+        model.addAttribute("factText", savedFactText);
+        return "factsite/create";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteFactText(final Model model, @PathVariable("id") final Long id) {
+        try {
+                factSiteService.deleteFactText(id);
+        } catch (NotFoundException e) {
+        }
+        final List<FactText> factTexts = factSiteService.getAllFactTexts();
+        model.addAttribute("factTexts", factTexts);
+        return "factsite/list";
+    }
 
 }

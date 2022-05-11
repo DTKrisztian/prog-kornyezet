@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en"
+<html lang="hu"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -15,7 +15,11 @@
 <body>
 
 <div class="container">
-    <h3 class="pt-5">Fact-ek listája</h3>
+    <h3 class="pt-5" style="text-align:center;">Fact-ek listája</h3>
+
+    <a th:href="@{/fact/create}"
+       type="button"
+       class="btn btn-info">Új fact hozzá adása</a>
 
     <table class="table table-striped pt-5">
         <caption>Fact-ek listája</caption>
@@ -27,6 +31,7 @@
                 <th scope="col">Műveletek</th>
             </tr>
         </thread>
+
         <tbody>
         <tr th:each="factTexts: ${factTexts}">
             <th scope="row"
@@ -37,8 +42,9 @@
                 <a th:href="@{'/fact/' + ${factTexts.id}}"
                    type="button"
                    class="btn btn-warning">Szerkesztés</a>
-                <a th:href="@{'/fact/remove/' + ${factTexts.id}}"
+                <a th:href="@{'/fact/' + ${factTexts.id} + '/delete'}"
                    type="button"
+                   onclick="return confirm('Tényleg szeretnéd törölni ezt a fact-et?');"
                    class="btn btn-danger">Törlés</a>
             </td>
         </tr>

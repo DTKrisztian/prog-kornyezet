@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en"
+<html lang="hu"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -16,6 +16,8 @@
 
 <div class="container">
 
+    <h3 class="pt-5">Fact szerkesztés</h3>
+
     <div class="row">
         <div class="col-md-4 mt-5">
             <form method="post"
@@ -24,7 +26,7 @@
                     <label>Fact modósító adatlap</label>
                 </div>
                 <div class="form-group">
-                    <label for="id">ID</label>
+                    <label for="id">ID:</label>
                     <input type="text"
                            id="id"
                            name="id"
@@ -33,27 +35,39 @@
                            th:value="${factText.id}"/>
                 </div>
                 <div class="form-group">
-                    <label for="context">Szöveg</label>
-                    <input type="text"
+                    <label for="context">Szöveg:</label>
+                    <input type="text" oninvalid="this.setCustomValidity('Kérlek töltsd ki ezt a mezőt!');" required
+                           onchange="this.setCustomValidity('')"
                            id="context"
                            name="context"
                            class="form-control"
                            th:value="${factText.context}"/>
                 </div>
                 <div class="form-group">
-                    <label for="theme">Téma</label>
-                    <input type="text"
-                           id="theme"
-                           name="theme"
-                           class="form-control"
-                           th:value="${factText.theme}"/>
+                    <label for="theme">Jelenlegi téma:
+                        <th:block th:text="${factText.theme}"></th:block>
+                    </label>
+                </div>
+                <div class="form-group pb-4">
+                    <label for="theme">Válassz témát:</label>
+                    <select class="form-select" name="theme" id="theme">
+                        <option value="SCIENCE">SCIENCE</option>
+                        <option value="SCARY">SCARY</option>
+                        <option value="FUNNY">FUNNY</option>
+                        <option value="ANIMALS">ANIMALS</option>
+                        <option value="GENERAL">GENERAL</option>
+                    </select>
                 </div>
                 <button class="btn btn-primary"
-                        type="submit">Módosít
+                        type="submit">Módosítás
                 </button>
-                <a th:href="@{/fact}"
+
+                <a th:href="@{'/fact/' + ${factText.id}}"
                    class="btn btn-secondary"
                    type="submit">Mégsem</a>
+                <a th:href="@{/fact}"
+                   class="btn btn-secondary"
+                   type="submit">Vissza</a>
             </form>
         </div>
     </div>
