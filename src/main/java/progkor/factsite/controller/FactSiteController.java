@@ -1,12 +1,12 @@
 package progkor.factsite.controller;
 
+import java.awt.*;
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import progkor.factsite.model.FactText;
 import progkor.factsite.service.FactSiteService;
 
@@ -34,6 +34,14 @@ public class FactSiteController {
         return "factsite/edit";
     }
 
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String createFactText(final Model model,
+                                 final @RequestParam(value = "id", required = false) Long id,
+                                 final FactText factTextChanges) {
+        final FactText factText = factSiteService.updateFactText(id, factTextChanges);
+        model.addAttribute("factText", factText);
+        return "factsite/edit";
+    }
 
 
 }

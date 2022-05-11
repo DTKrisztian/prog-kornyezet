@@ -16,8 +16,8 @@ public class FactSiteServiceImpl implements FactSiteService {
     private static final List<FactText> DATA_BASE = new ArrayList<>();
 
     static {
-        DATA_BASE.add(new FactText(1L, "Test fact", Theme.GENERAL));
-        DATA_BASE.add(new FactText(2L, "Test animal", Theme.ANIMALS));
+        DATA_BASE.add(new FactText(1L, "Testfact", Theme.GENERAL));
+        DATA_BASE.add(new FactText(2L, "Testanimal", Theme.ANIMALS));
     }
 
     @Override
@@ -26,7 +26,7 @@ public class FactSiteServiceImpl implements FactSiteService {
     }
 
     @Override
-    public FactText getFactText(Long id) {
+    public FactText getFactText(final Long id) {
         return DATA_BASE.stream()
                 .filter(factText -> factText.getId().equals(id))
                 .findFirst()
@@ -34,14 +34,14 @@ public class FactSiteServiceImpl implements FactSiteService {
     }
 
     @Override
-    public FactText createFactText(FactText factText) {
+    public FactText createFactText(final FactText factText) {
         factText.setId(getNextId());
         DATA_BASE.add(factText);
         return factText;
     }
 
     @Override
-    public FactText updateFactText(Long id, FactText factTextChange) {
+    public FactText updateFactText(final Long id, final FactText factTextChange) {
         final FactText factText = getFactText(id);
         factText.setContext(factTextChange.getContext());
         factText.setTheme(factTextChange.getTheme());
@@ -49,7 +49,7 @@ public class FactSiteServiceImpl implements FactSiteService {
     }
 
     @Override
-    public void deleteFactText(Long id) {
+    public void deleteFactText(final Long id) {
         final FactText factText = getFactText(id);
         DATA_BASE.remove(factText);
     }

@@ -11,7 +11,7 @@ public class FactText {
     public FactText() {
     }
 
-    public FactText(Long id, String context, Theme theme) {
+    public FactText(final Long id, final String context, final Theme theme) {
         this.id = id;
         this.context = context;
         this.theme = theme;
@@ -21,7 +21,7 @@ public class FactText {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -29,7 +29,7 @@ public class FactText {
         return context;
     }
 
-    public void setContext(String context) {
+    public void setContext(final String context) {
         this.context = context;
     }
 
@@ -37,15 +37,15 @@ public class FactText {
         return theme;
     }
 
-    public void setTheme(Theme theme) {
+    public void setTheme(final Theme theme) {
         this.theme = theme;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (!(o instanceof FactText)) return false;
-        FactText factText = (FactText) o;
+        final FactText factText = (FactText) o;
         return Objects.equals(id, factText.id) && Objects.equals(context, factText.context) && theme == factText.theme;
     }
 

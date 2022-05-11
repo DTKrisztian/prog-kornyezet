@@ -14,7 +14,7 @@ public class FactSiteRestController {
 
     private final FactSiteService factSiteService;
 
-    public FactSiteRestController(FactSiteService factSiteService) {
+    public FactSiteRestController(final FactSiteService factSiteService) {
         this.factSiteService = factSiteService;
     }
 
