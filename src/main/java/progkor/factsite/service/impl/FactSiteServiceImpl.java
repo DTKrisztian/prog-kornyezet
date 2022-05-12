@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import progkor.factsite.model.FactText;
 import progkor.factsite.model.Theme;
@@ -13,21 +14,26 @@ import progkor.factsite.service.FactSiteService;
 @Service
 public class FactSiteServiceImpl implements FactSiteService {
 
-    private static final List<FactText> DATA_BASE = new ArrayList<>();
+    private final List<FactText> dataBase = new ArrayList<>();
 
-    static {
-        DATA_BASE.add(new FactText(1L, "Testfact", Theme.GENERAL));
-        DATA_BASE.add(new FactText(2L, "Testanimal", Theme.ANIMALS));
+    @Autowired
+    public FactSiteServiceImpl() {
+        dataBase.add(new FactText(1L, "Test fact", Theme.GENERAL));
+        dataBase.add(new FactText(2L, "Test animal", Theme.ANIMALS));
+    }
+
+    public FactSiteServiceImpl(final List<FactText> factTexts) {
+        dataBase.addAll(factTexts);
     }
 
     @Override
     public List<FactText> getAllFactTexts() {
-        return Collections.unmodifiableList(DATA_BASE);
+        return Collections.unmodifiableList(dataBase);
     }
 
     @Override
     public FactText getFactText(final Long id) {
-        return DATA_BASE.stream()
+        return dataBase.stream()
                 .filter(factText -> factText.getId().equals(id))
                 .findFirst()
                 .orElseThrow(NotFoundException::new);
@@ -36,7 +42,7 @@ public class FactSiteServiceImpl implements FactSiteService {
     @Override
     public FactText createFactText(final FactText factText) {
         factText.setId(getNextId());
-        DATA_BASE.add(factText);
+        dataBase.add(factText);
         return factText;
     }
 
@@ -51,7 +57,7 @@ public class FactSiteServiceImpl implements FactSiteService {
     @Override
     public void deleteFactText(final Long id) {
         final FactText factText = getFactText(id);
-        DATA_BASE.remove(factText);
+        dataBase.remove(factText);
     }
 
     private long getNextId() {
@@ -59,7 +65,7 @@ public class FactSiteServiceImpl implements FactSiteService {
     }
 
     private long getLastId() {
-        return DATA_BASE.stream()
+        return dataBase.stream()
                 .mapToLong(FactText::getId)
                 .max()
                 .orElse(0);
